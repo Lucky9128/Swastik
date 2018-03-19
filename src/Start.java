@@ -70,7 +70,7 @@ public class Start extends JFrame {
 	private JButton DownloadExcel;
 	private JSlider LikeHood;
 	private JSlider Impact_1;
-	private int row=0;
+	private int row=1;
 	private JTextArea textArea;
 	private JLabel BasicInfoLabel;
 	private JLabel CSSLabel;
@@ -872,7 +872,7 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			button_1.setEnabled(true);
 			button_3.setEnabled(false);
 			button_2.setEnabled(true);
-			BasicInfoLabel.setForeground(Color.white);
+			BasicInfoLabel.setForeground(Color.black);
 			CSSLabel.setForeground(Color.white);
 			ACLabel.setForeground(Color.BLACK);
 			MSLabel.setForeground(Color.BLACK);
@@ -890,7 +890,7 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			button_1.setEnabled(true);
 			button_3.setEnabled(false);
 			button_2.setEnabled(true);
-			BasicInfoLabel.setForeground(Color.white);
+			BasicInfoLabel.setForeground(Color.black);
 			CSSLabel.setForeground(Color.black);
 			ACLabel.setForeground(Color.white);
 			MSLabel.setForeground(Color.BLACK);
@@ -906,7 +906,7 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			button_1.setEnabled(true);
 			button_3.setEnabled(true);
 			button_2.setEnabled(false);
-			BasicInfoLabel.setForeground(Color.white);
+			BasicInfoLabel.setForeground(Color.black);
 			CSSLabel.setForeground(Color.black);
 			ACLabel.setForeground(Color.BLACK);
 			MSLabel.setForeground(Color.BLACK);
