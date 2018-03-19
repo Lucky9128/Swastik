@@ -37,6 +37,7 @@ import java.awt.Font;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
 
 public class Start extends JFrame {
 
@@ -70,6 +71,12 @@ public class Start extends JFrame {
 	private JSlider LikeHood;
 	private JSlider Impact_1;
 	private int row=0;
+	private JTextArea textArea;
+	private JLabel BasicInfoLabel;
+	private JLabel CSSLabel;
+	private JLabel MSLabel;
+	private JLabel ACLabel;
+	private JLabel RCLabel;
 	/* *
 	 * state value for page direction 
 	 * 1 ==> Basic Information
@@ -125,80 +132,40 @@ public class Start extends JFrame {
 		Basic_Information.setBackground(Color.WHITE);
 		Basic_Information.setBounds(264, 0, 720, 513);
 		Basic_Information.setVisible(true);
-		contentPane.add(Basic_Information);
-		Basic_Information.setLayout(null);
 		
-		JLabel lblBasicInformation = new JLabel("Basic Information");
-		lblBasicInformation.setBounds(58, 11, 205, 38);
-		Basic_Information.add(lblBasicInformation);
+		Acceptance_Criteria = new JPanel();
+		Acceptance_Criteria.setBackground(Color.WHITE);
+		Acceptance_Criteria.setVisible(false);
+		Acceptance_Criteria.setBounds(264, 2, 720, 513);
+		contentPane.add(Acceptance_Criteria);
+		Acceptance_Criteria.setLayout(null);
 		
-		JLabel lblSoLets = new JLabel("So, let's configure vsRisk!");
-		lblSoLets.setBounds(58, 50, 205, 38);
-		Basic_Information.add(lblSoLets);
 		
-		JLabel label_1 = new JLabel("First, we need a few basic details.");
-		label_1.setBounds(58, 88, 205, 38);
-		Basic_Information.add(label_1);
+		JLabel lblNewLabel_3 = new JLabel("Likelihood");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(567, 155, 77, 14);
+		Acceptance_Criteria.add(lblNewLabel_3);
 		
-		JLabel OrganisationLabel = new JLabel("Organisation:");
-		OrganisationLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		OrganisationLabel.setBounds(128, 148, 86, 31);
-		Basic_Information.add(OrganisationLabel);
+		JLabel lblImpact_1 = new JLabel("Impact");
+		lblImpact_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImpact_1.setBounds(558, 199, 122, 14);
+		Acceptance_Criteria.add(lblImpact_1);
 		
-		OrganisationText = new JTextField();
-		OrganisationText.setBounds(214, 152, 189, 20);
-		Basic_Information.add(OrganisationText);
-		OrganisationText.setColumns(10);
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
+		panel_3.setBounds(34, 39, 493, 359);
+		Acceptance_Criteria.add(panel_3);
+		panel_3.setLayout(null);
 		
-		JLabel DisplayNameLabel = new JLabel("Display Name:");
-		DisplayNameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		DisplayNameLabel.setBounds(128, 190, 86, 31);
-		Basic_Information.add(DisplayNameLabel);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.YELLOW);
+		panel_2.setBounds(539, 155, 14, 14);
+		Acceptance_Criteria.add(panel_2);
 		
-		DisplayNameText = new JTextField();
-		DisplayNameText.setColumns(10);
-		DisplayNameText.setBounds(214, 194, 189, 20);
-		Basic_Information.add(DisplayNameText);
-		
-		JLabel EmailLabel = new JLabel("Email:");
-		EmailLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		EmailLabel.setBounds(128, 232, 86, 31);
-		Basic_Information.add(EmailLabel);
-		
-		EmailText = new JTextField();
-		EmailText.setColumns(10);
-		EmailText.setBounds(214, 236, 189, 20);
-		Basic_Information.add(EmailText);
-		
-		JLabel UsernameLabel = new JLabel("Username:");
-		UsernameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		UsernameLabel.setBounds(128, 268, 86, 31);
-		Basic_Information.add(UsernameLabel);
-		
-		UsernameText = new JTextField();
-		UsernameText.setColumns(10);
-		UsernameText.setBounds(214, 272, 189, 20);
-		Basic_Information.add(UsernameText);
-		
-		JLabel PasswordLabel = new JLabel("Password:");
-		PasswordLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		PasswordLabel.setBounds(128, 306, 86, 31);
-		Basic_Information.add(PasswordLabel);
-		
-		PasswordText = new JPasswordField();
-		PasswordText.setColumns(10);
-		PasswordText.setBounds(214, 310, 189, 20);
-		Basic_Information.add(PasswordText);
-		
-		JLabel ConfrimLabel = new JLabel("Confirm:");
-		ConfrimLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		ConfrimLabel.setBounds(128, 348, 86, 31);
-		Basic_Information.add(ConfrimLabel);
-		
-		ConfirmText = new JPasswordField();
-		ConfirmText.setColumns(10);
-		ConfirmText.setBounds(214, 352, 189, 20);
-		Basic_Information.add(ConfirmText);
+		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(Color.RED);
+		panel_5.setBounds(539, 199, 14, 14);
+		Acceptance_Criteria.add(panel_5);
 		
 
 		RiskCalculator = new JPanel();
@@ -377,19 +344,23 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 
 				private int RiskCal() {
 					int sum=0;
+					int flag=0;
 					if(Check_C.isSelected()) {
 						sum+= Calculate((int)CI.getValue(),(int)CL.getValue());
+						flag++;
 				//		System.out.println(sum);
 					}
 					if(Check_I.isSelected()) {
 						sum+= Calculate((int)II.getValue(),(int)IL.getValue());
+						flag++;
 				//		System.out.println(sum);
 					}
 					if(Check_A.isSelected()) {
 						sum+= Calculate((int)AI.getValue(),(int)AL.getValue());
+						flag++;
 						//System.out.println(sum);
 					}
-					return sum;
+					return sum/flag;
 				}
 			});
 			btnCalculate.setBackground(Color.WHITE);
@@ -411,6 +382,80 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			DownloadExcel.setBackground(Color.WHITE);
 			DownloadExcel.setBounds(517, 415, 129, 49);
 			RiskCalculator.add(DownloadExcel);
+		contentPane.add(Basic_Information);
+		Basic_Information.setLayout(null);
+		
+		JLabel lblBasicInformation = new JLabel("Basic Information");
+		lblBasicInformation.setBounds(58, 11, 205, 38);
+		Basic_Information.add(lblBasicInformation);
+		
+		JLabel lblSoLets = new JLabel("So, let's configure vsRisk!");
+		lblSoLets.setBounds(58, 50, 205, 38);
+		Basic_Information.add(lblSoLets);
+		
+		JLabel label_1 = new JLabel("First, we need a few basic details.");
+		label_1.setBounds(58, 88, 205, 38);
+		Basic_Information.add(label_1);
+		
+		JLabel OrganisationLabel = new JLabel("Organisation:");
+		OrganisationLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		OrganisationLabel.setBounds(128, 148, 86, 31);
+		Basic_Information.add(OrganisationLabel);
+		
+		OrganisationText = new JTextField();
+		OrganisationText.setBounds(214, 152, 189, 20);
+		Basic_Information.add(OrganisationText);
+		OrganisationText.setColumns(10);
+		
+		JLabel DisplayNameLabel = new JLabel("Display Name:");
+		DisplayNameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		DisplayNameLabel.setBounds(128, 190, 86, 31);
+		Basic_Information.add(DisplayNameLabel);
+		
+		DisplayNameText = new JTextField();
+		DisplayNameText.setColumns(10);
+		DisplayNameText.setBounds(214, 194, 189, 20);
+		Basic_Information.add(DisplayNameText);
+		
+		JLabel EmailLabel = new JLabel("Email:");
+		EmailLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		EmailLabel.setBounds(128, 232, 86, 31);
+		Basic_Information.add(EmailLabel);
+		
+		EmailText = new JTextField();
+		EmailText.setColumns(10);
+		EmailText.setBounds(214, 236, 189, 20);
+		Basic_Information.add(EmailText);
+		
+		JLabel UsernameLabel = new JLabel("Username:");
+		UsernameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		UsernameLabel.setBounds(128, 268, 86, 31);
+		Basic_Information.add(UsernameLabel);
+		
+		UsernameText = new JTextField();
+		UsernameText.setColumns(10);
+		UsernameText.setBounds(214, 272, 189, 20);
+		Basic_Information.add(UsernameText);
+		
+		JLabel PasswordLabel = new JLabel("Password:");
+		PasswordLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		PasswordLabel.setBounds(128, 306, 86, 31);
+		Basic_Information.add(PasswordLabel);
+		
+		PasswordText = new JPasswordField();
+		PasswordText.setColumns(10);
+		PasswordText.setBounds(214, 310, 189, 20);
+		Basic_Information.add(PasswordText);
+		
+		JLabel ConfrimLabel = new JLabel("Confirm:");
+		ConfrimLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		ConfrimLabel.setBounds(128, 348, 86, 31);
+		Basic_Information.add(ConfrimLabel);
+		
+		ConfirmText = new JPasswordField();
+		ConfirmText.setColumns(10);
+		ConfirmText.setBounds(214, 352, 189, 20);
+		Basic_Information.add(ConfirmText);
 		
 		Management_Scales.setBounds(264, 0, 720, 513);
 		contentPane.add(Management_Scales);
@@ -575,47 +620,6 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 		Formula.addItem(new String("Likelihood*Impact"));
 		Management_Scales.add(Formula);
 		
-		Acceptance_Criteria = new JPanel();
-		Acceptance_Criteria.setBackground(Color.WHITE);
-		Acceptance_Criteria.setVisible(false);
-		Acceptance_Criteria.setBounds(264, 0, 720, 513);
-		contentPane.add(Acceptance_Criteria);
-		Acceptance_Criteria.setLayout(null);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(87, 61, 270, 286);
-		Acceptance_Criteria.add(panel_2);
-		panel_2.setBorder(border);
-		panel_2.setLayout(null);
-		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setBounds(29, 0, 1, 286);
-		lblNewLabel_4.setBorder(border);
-		panel_2.add(lblNewLabel_4);
-		
-		JLabel label_17 = new JLabel("New label");
-		label_17.setBorder(border);
-		label_17.setBounds(0, 255, 270, 1);
-		panel_2.add(label_17);
-		
-		
-		JLabel lblNewLabel_3 = new JLabel("Likelihood");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(0, 142, 77, 14);
-		Acceptance_Criteria.add(lblNewLabel_3);
-		
-		JLabel lblImpact_1 = new JLabel("Impact");
-		lblImpact_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImpact_1.setBounds(159, 359, 122, 14);
-		Acceptance_Criteria.add(lblImpact_1);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
-		panel_3.setBounds(395, 76, 237, 217);
-		Acceptance_Criteria.add(panel_3);
-		panel_3.setLayout(null);
-		
 		
 		Control_Set_Selection.setBounds(264, 0, 720, 513);
 		contentPane.add(Control_Set_Selection);
@@ -652,25 +656,35 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 		lblNewLabel.setBounds(0, 0, 263, 50);
 		panel.add(lblNewLabel);
 		
-		JLabel label = new JLabel("New Label");
-		label.setBounds(0, 52, 263, 93);
-		panel.add(label);
+		BasicInfoLabel = new JLabel("Basic Information");
+		BasicInfoLabel.setForeground(Color.WHITE);
+		BasicInfoLabel.setBounds(76, 270, 127, 27);
+		panel.add(BasicInfoLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Basic Information");
-		lblNewLabel_1.setBounds(76, 270, 127, 27);
-		panel.add(lblNewLabel_1);
+		CSSLabel = new JLabel("Control Set selection");
+		CSSLabel.setBounds(76, 308, 127, 27);
+		panel.add(CSSLabel);
 		
-		JLabel label_6 = new JLabel("Control Set selection");
-		label_6.setBounds(76, 308, 127, 27);
-		panel.add(label_6);
+		MSLabel = new JLabel("Management scales");
+		MSLabel.setBounds(76, 346, 127, 27);
+		panel.add(MSLabel);
 		
-		JLabel label_7 = new JLabel("Management scales");
-		label_7.setBounds(76, 346, 127, 27);
-		panel.add(label_7);
+		ACLabel = new JLabel("Acceptance criteria");
+		ACLabel.setBounds(76, 380, 127, 27);
+		panel.add(ACLabel);
 		
-		JLabel label_8 = new JLabel("Acceptance criteria");
-		label_8.setBounds(76, 380, 127, 27);
-		panel.add(label_8);
+		textArea = new JTextArea();
+		textArea.setBackground(Color.GRAY);
+		textArea.setBounds(0, 47, 263, 114);
+		textArea.setText("Before you can undertake your assessment"
+				+ " \nyou will need to perform some basic\n"
+				+ "configuration steps. Please follow this "
+				+ "\nwizard to configure the assessment.");
+		panel.add(textArea);
+		
+		RCLabel = new JLabel("Risk Calculator");
+		RCLabel.setBounds(76, 406, 127, 27);
+		panel.add(RCLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(264, 514, 720, 47);
@@ -719,7 +733,7 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 					}else if(ConfirmText.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(Basic_Information, "Please Confirm your Password");
 					}else if(ConfirmText.getText().equals(PasswordText.getText())){
-						AddToData();
+						
 						state=2;
 						MoveTo(state);
 						
@@ -791,20 +805,20 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 		}
 		
 	}
-	public  void AddToData() {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","System","1234");
-			Statement st = con.createStatement();
-			int rs = st.executeUpdate("insert into DEMODB.VSRISK values('"+OrganisationText.getText()+"','"+DisplayNameText.getText()+"','"+
-			EmailText.getText()+"','"+UsernameText.getText()+"','"+PasswordText.getText()+"',0,0)");
-			con.close();	
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+//	public  void AddToData() {
+//		try {
+//			Class.forName("oracle.jdbc.driver.OracleDriver");
+//			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","System","1234");
+//			Statement st = con.createStatement();
+//			int rs = st.executeUpdate("insert into DEMODB.VSRISK values('"+OrganisationText.getText()+"','"+DisplayNameText.getText()+"','"+
+//			EmailText.getText()+"','"+UsernameText.getText()+"','"+PasswordText.getText()+"',0,0)");
+//			con.close();	
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	}
 
 	private void MoveTo(int i) {
 		if(i==1) {		
@@ -817,6 +831,16 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			button_1.setEnabled(true);
 			button_3.setEnabled(false);
 			button_2.setEnabled(false);
+			BasicInfoLabel.setForeground(Color.white);
+			CSSLabel.setForeground(Color.black);
+			ACLabel.setForeground(Color.BLACK);
+			MSLabel.setForeground(Color.BLACK);
+			RCLabel.setForeground(Color.BLACK);
+			textArea.setText("Before you can undertake your assessment"
+					+ " \nyou will need to perform some basic\n"
+					+ "configuration steps. Please follow this "
+					+ "\nwizard to configure the assessment.");
+			
 		}else if(i==3) {		
 			Basic_Information.setVisible(false);
 			Management_Scales.setVisible(true);
@@ -826,6 +850,19 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			button_1.setEnabled(true);
 			button_3.setEnabled(false);
 			button_2.setEnabled(true);
+			BasicInfoLabel.setForeground(Color.black);
+			CSSLabel.setForeground(Color.black);
+			ACLabel.setForeground(Color.black);
+			MSLabel.setForeground(Color.white);
+			RCLabel.setForeground(Color.BLACK);
+			textArea.setText("Now you need to set the"
+					+ "\nthe impact (or consequence)"
+					+ "\nand Likelihood (or probability)"
+					+ "\nscales you will use during your"
+					+ "\nAssessment. The minimum is three,"
+					+ "\nand the maximum is seven. You"
+					+ "\ncan also edit the guidance provided"
+					+ "\nfor each value as required.");
 		}else if(i==2) {		
 			Basic_Information.setVisible(false);
 			Management_Scales.setVisible(false);
@@ -835,6 +872,15 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			button_1.setEnabled(true);
 			button_3.setEnabled(false);
 			button_2.setEnabled(true);
+			BasicInfoLabel.setForeground(Color.white);
+			CSSLabel.setForeground(Color.white);
+			ACLabel.setForeground(Color.BLACK);
+			MSLabel.setForeground(Color.BLACK);
+			RCLabel.setForeground(Color.BLACK);
+			textArea.setText("These are the default control"
+					+ "\nsets available with vmmRisk. On"
+					+ "\nthis screen you can choose which"
+					+ "\ncontrol sets you wish to use.");
 		}else if(i==4) {		
 			Basic_Information.setVisible(false);
 			Management_Scales.setVisible(false);
@@ -844,6 +890,12 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			button_1.setEnabled(true);
 			button_3.setEnabled(false);
 			button_2.setEnabled(true);
+			BasicInfoLabel.setForeground(Color.white);
+			CSSLabel.setForeground(Color.black);
+			ACLabel.setForeground(Color.white);
+			MSLabel.setForeground(Color.BLACK);
+			RCLabel.setForeground(Color.BLACK);
+			
 		}else if(i==5) {
 
 			Basic_Information.setVisible(false);
@@ -854,6 +906,11 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			button_1.setEnabled(true);
 			button_3.setEnabled(true);
 			button_2.setEnabled(false);
+			BasicInfoLabel.setForeground(Color.white);
+			CSSLabel.setForeground(Color.black);
+			ACLabel.setForeground(Color.BLACK);
+			MSLabel.setForeground(Color.BLACK);
+			RCLabel.setForeground(Color.white);
 		}
 	}
 	private void Referesh() {
