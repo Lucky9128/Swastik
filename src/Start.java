@@ -1,4 +1,5 @@
-import java.awt.BorderLayout;
+
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -6,9 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import jxl.Workbook;
 import java.io.File;
 
@@ -21,7 +19,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -59,7 +56,7 @@ public class Start extends JFrame {
 	private JButton button_2;
 	private JButton button_3;
 	private static int state =1;      
-	private JComboBox Formula ;
+	private JComboBox<String> Formula ;
 	private JPanel RiskCalculator;
 	private Border border;
 	private JSpinner CL;
@@ -78,7 +75,6 @@ public class Start extends JFrame {
 	private JLabel CSSLabel;
 	private JLabel MSLabel;
 	private JLabel ACLabel;
-	private JLabel RCLabel;
 	private JTextField textField;
 	private JLabel FTCLabel;
 	private JLabel TRTLabel;
@@ -86,6 +82,9 @@ public class Start extends JFrame {
 	private JTextField textField_8;
 	private JLabel lblImpact_1;
 	private JLabel lblNewLabel_3;
+	private JComboBox<String> comboBox_2;
+	private JComboBox<String> comboBox;
+	private JTextField textField_1;
 	/* *
 	 * state value for page direction 
 	 * 1 ==> Basic Information
@@ -138,14 +137,6 @@ public class Start extends JFrame {
 		Basic_Information.setBounds(264, 0, 720, 513);
 		Basic_Information.setVisible(true);
 		
-		FourTControls = new JPanel();
-		FourTControls.setBackground(Color.WHITE);
-		FourTControls.setVisible(false);
-		
-		Treat = new JPanel();
-		Treat.setBackground(Color.WHITE);
-		Treat.setVisible(false);
-		
 		Acceptance_Criteria = new JPanel();
 		Acceptance_Criteria.setBackground(Color.WHITE);
 		Acceptance_Criteria.setVisible(false);
@@ -154,153 +145,13 @@ public class Start extends JFrame {
 		Management_Scales.setBackground(Color.WHITE);
 		Management_Scales.setVisible(false);
 		
-		Management_Scales.setBounds(264, 0, 720, 513);
-		contentPane.add(Management_Scales);
-		Management_Scales.setLayout(null);
+		FourTControls = new JPanel();
+		FourTControls.setBackground(Color.WHITE);
+		FourTControls.setVisible(false);
 		
-		JLabel lblManagementScales = new JLabel("Management Scales");
-		lblManagementScales.setBounds(23, 11, 154, 28);
-		Management_Scales.add(lblManagementScales);
-		
-		JLabel lblLikelihood = new JLabel("Likelihood");
-		lblLikelihood.setBounds(23, 60, 154, 28);
-		Management_Scales.add(lblLikelihood);
-		
-		JLabel lblImpact = new JLabel("Impact");
-		lblImpact.setBounds(23, 257, 154, 28);
-		Management_Scales.add(lblImpact);
-		
-		JLabel label_2 = new JLabel("1");
-		label_2.setBounds(171, 144, 15, 14);
-		Management_Scales.add(label_2);
-		
-		JLabel label_3 = new JLabel("2");
-		label_3.setBounds(279, 144, 15, 14);
-		Management_Scales.add(label_3);
-		
-		JLabel label_4 = new JLabel("3");
-		label_4.setBounds(392, 144, 15, 14);
-		Management_Scales.add(label_4);
-		
-		JLabel label_5 = new JLabel("4");
-		label_5.setBounds(502, 144, 15, 14);
-		Management_Scales.add(label_5);
-		
-		JLabel label_9 = new JLabel("5");
-		label_9.setBounds(610, 142, 15, 14);
-		Management_Scales.add(label_9);
-		
-		JLabel label_10 = new JLabel("1");
-		label_10.setBounds(171, 334, 15, 14);
-		Management_Scales.add(label_10);
-		
-		JLabel label_11 = new JLabel("2");
-		label_11.setBounds(279, 334, 15, 14);
-		Management_Scales.add(label_11);
-		
-		JLabel label_12 = new JLabel("3");
-		label_12.setBounds(392, 334, 15, 14);
-		Management_Scales.add(label_12);
-		
-		JLabel label_13 = new JLabel("4");
-		label_13.setBounds(502, 334, 15, 14);
-		Management_Scales.add(label_13);
-		
-		JLabel label_14 = new JLabel("5");
-		label_14.setBounds(610, 332, 15, 14);
-		Management_Scales.add(label_14);
-		
-		LikeHood = new JSlider();
-		LikeHood.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if(LikeHood.getValue()<=12) {
-					LikeHood.setValue(0);
-					
-				}else if(LikeHood.getValue()>12&&LikeHood.getValue()<37)
-				{
-					LikeHood.setValue(25);
-				}
-				else if(LikeHood.getValue()>32&&LikeHood.getValue()<62){
-					LikeHood.setValue(50);
-				}
-				else if(LikeHood.getValue()>62&&LikeHood.getValue()<87){
-					LikeHood.setValue(75);
-				}else {
-					LikeHood.setValue(100);
-				}
-			}
-		});
-		LikeHood.setBackground(Color.WHITE);
-		LikeHood.setValue(75);
-		LikeHood.setOpaque(true);
-		LikeHood.setBounds(171, 107, 446, 26);
-		Management_Scales.add(LikeHood);
-		
-		Impact_1 = new JSlider();
-		Impact_1.setBackground(Color.WHITE);
-		Impact_1.setBounds(171, 297, 446, 26);
-		Impact_1.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if(Impact_1.getValue()<=12) {
-					Impact_1.setValue(0);
-					
-				}else if(Impact_1.getValue()>12&&Impact_1.getValue()<37)
-				{
-					Impact_1.setValue(25);
-				}
-				else if(Impact_1.getValue()>32&&Impact_1.getValue()<62){
-					Impact_1.setValue(50);
-				}
-				else if(Impact_1.getValue()>62&&Impact_1.getValue()<87){
-					Impact_1.setValue(75);
-				}else {
-					Impact_1.setValue(100);
-				}
-			}
-		});
-		Management_Scales.add(Impact_1);
-		
-		JLabel lblOperational = new JLabel("Operational");
-		lblOperational.setBounds(48, 421, 71, 14);
-		Management_Scales.add(lblOperational);
-		
-		Formula = new JComboBox();
-		Formula.setBounds(155, 418, 161, 20);
-		Formula.addItem(new String("Likelihood+Impact"));
-		Formula.addItem(new String("Likelihood-Impact"));
-		Formula.addItem(new String("Likelihood+Impact-1"));
-		Formula.addItem(new String("Likelihood-Impact-1"));
-		Formula.addItem(new String("Likelihood*Impact"));
-		Management_Scales.add(Formula);
-		Acceptance_Criteria.setBounds(264, 2, 720, 513);
-		contentPane.add(Acceptance_Criteria);
-		Acceptance_Criteria.setLayout(null);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
-		panel_3.setBounds(34, 39, 651, 395);
-		Acceptance_Criteria.add(panel_3);
-		panel_3.setLayout(null);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(338, 40, 14, 14);
-		panel_3.add(panel_2);
-		panel_2.setBackground(Color.YELLOW);
-		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(199, 320, 14, 14);
-		panel_3.add(panel_5);
-		panel_5.setBackground(Color.RED);
-		
-		lblImpact_1 = new JLabel("Impact");
-		lblImpact_1.setBounds(218, 320, 91, 14);
-		panel_3.add(lblImpact_1);
-		lblImpact_1.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		lblNewLabel_3 = new JLabel("Likelihood");
-		lblNewLabel_3.setBounds(366, 40, 123, 14);
-		panel_3.add(lblNewLabel_3);
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		Treat = new JPanel();
+		Treat.setBackground(Color.WHITE);
+		Treat.setVisible(false);
 		
 
 		RiskCalculator = new JPanel();
@@ -310,15 +161,17 @@ public class Start extends JFrame {
 		RiskCalculator.setVisible(false);
 		RiskCalculator.setLayout(null);
 		
-		JLabel label_18 = new JLabel("Risk Details");
-		label_18.setBounds(55, 33, 162, 33);
-		RiskCalculator.add(label_18);
+		JLabel lblTreat = new JLabel("Treat");
+		lblTreat.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTreat.setBounds(51, 47, 162, 33);
+		RiskCalculator.add(lblTreat);
 		
 		JLabel lblRisk = new JLabel("Risk");
+		lblRisk.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblRisk.setBounds(55, 89, 73, 22);
 		RiskCalculator.add(lblRisk);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox<String>();
 		comboBox.setBackground(Color.WHITE);
 		comboBox.setBounds(138, 90, 508, 22);
 		
@@ -365,13 +218,14 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 		RiskCalculator.add(comboBox);
 		
 		JLabel lblNewLabel_5 = new JLabel("Compromises");
-		lblNewLabel_5.setBounds(55, 171, 99, 22);
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_5.setBounds(55, 216, 114, 22);
 		RiskCalculator.add(lblNewLabel_5);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.WHITE);
 		panel_4.setBorder(border);
-		panel_4.setBounds(189, 171, 309, 186);
+		panel_4.setBounds(189, 216, 309, 186);
 		RiskCalculator.add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -458,11 +312,12 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			panel_4.add(lblL);
 			
 			JLabel RiskRatingLabel = new JLabel("Risk Rating     =");
-			RiskRatingLabel.setBounds(55, 403, 99, 22);
+			RiskRatingLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+			RiskRatingLabel.setBounds(55, 438, 129, 22);
 			RiskCalculator.add(RiskRatingLabel);
 			
 			JLabel RiskRatingText = new JLabel("");
-			RiskRatingText.setBounds(145, 403, 117, 22);
+			RiskRatingText.setBounds(181, 438, 117, 22);
 			RiskCalculator.add(RiskRatingText);
 			
 			JButton btnCalculate = new JButton("Calculate");
@@ -517,6 +372,39 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			DownloadExcel.setBackground(Color.WHITE);
 			DownloadExcel.setBounds(517, 415, 129, 49);
 			RiskCalculator.add(DownloadExcel);
+			
+			JLabel label_8 = new JLabel("Control");
+			label_8.setHorizontalAlignment(SwingConstants.CENTER);
+			label_8.setFont(new Font("Tahoma", Font.BOLD, 15));
+			label_8.setBounds(39, 129, 89, 29);
+			RiskCalculator.add(label_8);
+			
+			comboBox_2 = new JComboBox<String>();
+			comboBox_2.setBackground(Color.WHITE);
+			comboBox_2.setBounds(139, 133, 508, 23);
+			comboBox_2.addItem("(A.5.1.1)Information security policy document");
+			comboBox_2.addItem("(A.5.1.2)Review of the information security policy");
+			comboBox_2.addItem("(A.6.1.1)Management commitment to information security");
+			comboBox_2.addItem("(A.6.1.2)Information security coordination");
+			comboBox_2.addItem("(A.6.1.3)Allocation of information security responsibilities");
+			comboBox_2.addItem("(A.6.1.4)Authorization process for information processing facilities");
+			comboBox_2.addItem("(A.6.1.5)Confidentiality agreements");
+			comboBox_2.addItem("(A.6.1.6)Contact with authorities");
+			comboBox_2.addItem("(A.6.1.7)Contact with special interest groups");
+			comboBox_2.addItem("(A.6.1.8)Independent review of information security");
+			comboBox_2.addItem("(A.6.1.9)Identification of risks related to external parties");
+			comboBox_2.setSelectedIndex(0);
+			RiskCalculator.add(comboBox_2);
+			
+			JLabel lblComment_1 = new JLabel("Comment");
+			lblComment_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+			lblComment_1.setBounds(51, 472, 98, 22);
+			RiskCalculator.add(lblComment_1);
+			
+			textField_1 = new JTextField();
+			textField_1.setBounds(176, 475, 322, 20);
+			RiskCalculator.add(textField_1);
+			textField_1.setColumns(10);
 		Treat.setBounds(264, 2, 720, 513);
 		contentPane.add(Treat);
 		Treat.setLayout(null);
@@ -544,7 +432,7 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 		lblControl.setBounds(62, 108, 105, 29);
 		Treat.add(lblControl);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		JComboBox<String> comboBox_1 = new JComboBox<String>();
 		comboBox_1.setEditable(true);
 		comboBox_1.addItem("(A.5.1.1)Information security policy document");
 		comboBox_1.addItem("(A.5.1.2)Review of the information security policy");
@@ -559,9 +447,6 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 		comboBox_1.addItem("(A.6.1.9)Identification of risks related to external parties");
 		comboBox_1.setBounds(62, 137, 251, 29);
 		Treat.add(comboBox_1);
-		FourTControls.setBounds(264, 2, 720, 513);
-		contentPane.add(FourTControls);
-		FourTControls.setLayout(null);
 		
 
 		
@@ -690,6 +575,9 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 		label.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label.setBounds(572, 116, 28, 32);
 		Treat.add(label);
+		FourTControls.setBounds(264, 2, 720, 513);
+		contentPane.add(FourTControls);
+		FourTControls.setLayout(null);
 		
 		
 		JButton btnTreat = new JButton("TREAT");
@@ -742,6 +630,154 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(170, 103, 356, 36);
 		FourTControls.add(lblNewLabel_1);
+		
+		Management_Scales.setBounds(264, 0, 720, 513);
+		contentPane.add(Management_Scales);
+		Management_Scales.setLayout(null);
+		
+		JLabel lblManagementScales = new JLabel("Management Scales");
+		lblManagementScales.setBounds(23, 11, 154, 28);
+		Management_Scales.add(lblManagementScales);
+		
+		JLabel lblLikelihood = new JLabel("Likelihood");
+		lblLikelihood.setBounds(23, 60, 154, 28);
+		Management_Scales.add(lblLikelihood);
+		
+		JLabel lblImpact = new JLabel("Impact");
+		lblImpact.setBounds(23, 257, 154, 28);
+		Management_Scales.add(lblImpact);
+		
+		JLabel label_2 = new JLabel("1");
+		label_2.setBounds(171, 144, 15, 14);
+		Management_Scales.add(label_2);
+		
+		JLabel label_3 = new JLabel("2");
+		label_3.setBounds(279, 144, 15, 14);
+		Management_Scales.add(label_3);
+		
+		JLabel label_4 = new JLabel("3");
+		label_4.setBounds(392, 144, 15, 14);
+		Management_Scales.add(label_4);
+		
+		JLabel label_5 = new JLabel("4");
+		label_5.setBounds(502, 144, 15, 14);
+		Management_Scales.add(label_5);
+		
+		JLabel label_9 = new JLabel("5");
+		label_9.setBounds(610, 142, 15, 14);
+		Management_Scales.add(label_9);
+		
+		JLabel label_10 = new JLabel("1");
+		label_10.setBounds(171, 334, 15, 14);
+		Management_Scales.add(label_10);
+		
+		JLabel label_11 = new JLabel("2");
+		label_11.setBounds(279, 334, 15, 14);
+		Management_Scales.add(label_11);
+		
+		JLabel label_12 = new JLabel("3");
+		label_12.setBounds(392, 334, 15, 14);
+		Management_Scales.add(label_12);
+		
+		JLabel label_13 = new JLabel("4");
+		label_13.setBounds(502, 334, 15, 14);
+		Management_Scales.add(label_13);
+		
+		JLabel label_14 = new JLabel("5");
+		label_14.setBounds(610, 332, 15, 14);
+		Management_Scales.add(label_14);
+		
+		LikeHood = new JSlider();
+		LikeHood.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if(LikeHood.getValue()<=12) {
+					LikeHood.setValue(0);
+					
+				}else if(LikeHood.getValue()>12&&LikeHood.getValue()<37)
+				{
+					LikeHood.setValue(25);
+				}
+				else if(LikeHood.getValue()>32&&LikeHood.getValue()<62){
+					LikeHood.setValue(50);
+				}
+				else if(LikeHood.getValue()>62&&LikeHood.getValue()<87){
+					LikeHood.setValue(75);
+				}else {
+					LikeHood.setValue(100);
+				}
+			}
+		});
+		LikeHood.setBackground(Color.WHITE);
+		LikeHood.setValue(75);
+		LikeHood.setOpaque(true);
+		LikeHood.setBounds(171, 107, 446, 26);
+		Management_Scales.add(LikeHood);
+		
+		Impact_1 = new JSlider();
+		Impact_1.setBackground(Color.WHITE);
+		Impact_1.setBounds(171, 297, 446, 26);
+		Impact_1.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if(Impact_1.getValue()<=12) {
+					Impact_1.setValue(0);
+					
+				}else if(Impact_1.getValue()>12&&Impact_1.getValue()<37)
+				{
+					Impact_1.setValue(25);
+				}
+				else if(Impact_1.getValue()>32&&Impact_1.getValue()<62){
+					Impact_1.setValue(50);
+				}
+				else if(Impact_1.getValue()>62&&Impact_1.getValue()<87){
+					Impact_1.setValue(75);
+				}else {
+					Impact_1.setValue(100);
+				}
+			}
+		});
+		Management_Scales.add(Impact_1);
+		
+		JLabel lblOperational = new JLabel("Operational");
+		lblOperational.setBounds(48, 421, 71, 14);
+		Management_Scales.add(lblOperational);
+		
+		Formula = new JComboBox<String>();
+		Formula.setBounds(155, 418, 161, 20);
+		Formula.addItem(new String("Likelihood+Impact"));
+		Formula.addItem(new String("Likelihood-Impact"));
+		Formula.addItem(new String("Likelihood+Impact-1"));
+		Formula.addItem(new String("Likelihood-Impact-1"));
+		Formula.addItem(new String("Likelihood*Impact"));
+		Management_Scales.add(Formula);
+		Acceptance_Criteria.setBounds(264, 2, 720, 513);
+		contentPane.add(Acceptance_Criteria);
+		Acceptance_Criteria.setLayout(null);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
+		panel_3.setBounds(34, 39, 651, 395);
+		Acceptance_Criteria.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(338, 40, 14, 14);
+		panel_3.add(panel_2);
+		panel_2.setBackground(Color.YELLOW);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBounds(199, 320, 14, 14);
+		panel_3.add(panel_5);
+		panel_5.setBackground(Color.RED);
+		
+		lblImpact_1 = new JLabel("Impact");
+		lblImpact_1.setBounds(218, 320, 91, 14);
+		panel_3.add(lblImpact_1);
+		lblImpact_1.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		lblNewLabel_3 = new JLabel("Likelihood");
+		lblNewLabel_3.setBounds(366, 40, 123, 14);
+		panel_3.add(lblNewLabel_3);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(Basic_Information);
 		Basic_Information.setLayout(null);
 		
@@ -879,16 +915,12 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 				+ "\nwizard to configure the assessment.");
 		panel.add(textArea);
 		
-		RCLabel = new JLabel("Risk Calculator");
-		RCLabel.setBounds(76, 406, 127, 27);
-		panel.add(RCLabel);
-		
 		FTCLabel = new JLabel("4TControls");
-		FTCLabel.setBounds(76, 439, 127, 27);
+		FTCLabel.setBounds(74, 414, 127, 27);
 		panel.add(FTCLabel);
 		
 		TRTLabel = new JLabel("Treat");
-		TRTLabel.setBounds(76, 477, 127, 27);
+		TRTLabel.setBounds(74, 452, 127, 27);
 		panel.add(TRTLabel);
 		
 		JPanel panel_1 = new JPanel();
@@ -1005,6 +1037,12 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			sh.addCell(new Label(9,row,String.valueOf(AL.getValue())));
 			sh.addCell(new Label(10,0,"Availability Impact"));
 			sh.addCell(new Label(10,row,String.valueOf(AI.getValue())));
+			sh.addCell(new Label(11,0,"Control"));
+			sh.addCell(new Label(11,row,String.valueOf(comboBox_2.getSelectedItem().toString())));
+			sh.addCell(new Label(12,0,"Comment"));
+			sh.addCell(new Label(12,row,String.valueOf(textField_1.getText())));
+			sh.addCell(new Label(12,0,"Risk"));
+			sh.addCell(new Label(12,row,String.valueOf(comboBox.getSelectedItem().toString())));
 			row++;
 			ww.write();
 			ww.close();
@@ -1014,20 +1052,6 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 		}
 		
 	}
-//	public  void AddToData() {
-//		try {
-//			Class.forName("oracle.jdbc.driver.OracleDriver");
-//			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","System","1234");
-//			Statement st = con.createStatement();
-//			int rs = st.executeUpdate("insert into DEMODB.VSRISK values('"+OrganisationText.getText()+"','"+DisplayNameText.getText()+"','"+
-//			EmailText.getText()+"','"+UsernameText.getText()+"','"+PasswordText.getText()+"',0,0)");
-//			con.close();	
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//	}
 
 	private void MoveTo(int i) {
 		if(i==1) {		
@@ -1046,7 +1070,6 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			CSSLabel.setForeground(Color.black);
 			ACLabel.setForeground(Color.BLACK);
 			MSLabel.setForeground(Color.BLACK);
-			RCLabel.setForeground(Color.BLACK);
 			FTCLabel.setForeground(Color.BLACK);
 			TRTLabel.setForeground(Color.BLACK);
 			textArea.setText("Before you can undertake your assessment"
@@ -1069,7 +1092,6 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			CSSLabel.setForeground(Color.white);
 			ACLabel.setForeground(Color.BLACK);
 			MSLabel.setForeground(Color.BLACK);
-			RCLabel.setForeground(Color.BLACK);
 			FTCLabel.setForeground(Color.BLACK);
 			TRTLabel.setForeground(Color.BLACK);
 			textArea.setText("These are the default control"
@@ -1091,7 +1113,6 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			CSSLabel.setForeground(Color.black);
 			ACLabel.setForeground(Color.black);
 			MSLabel.setForeground(Color.white);
-			RCLabel.setForeground(Color.BLACK);
 			FTCLabel.setForeground(Color.BLACK);
 			TRTLabel.setForeground(Color.BLACK);
 			textArea.setText("Now you need to set the"
@@ -1119,10 +1140,26 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			CSSLabel.setForeground(Color.black);
 			ACLabel.setForeground(Color.white);
 			MSLabel.setForeground(Color.BLACK);
-			RCLabel.setForeground(Color.BLACK);
 			lblImpact_1.setText("Impact("+Impact_1.getValue()+")");
 			lblNewLabel_3.setText("Likelihood("+LikeHood.getValue()+")");
 		}else if(i==5){
+			Basic_Information.setVisible(false);
+			Management_Scales.setVisible(false);
+			RiskCalculator.setVisible(false);
+			Control_Set_Selection.setVisible(false);
+			Acceptance_Criteria.setVisible(false);
+			FourTControls.setVisible(true);
+			Treat.setVisible(false);
+			button_1.setEnabled(true);
+			button_3.setEnabled(false);
+			button_2.setEnabled(true);
+			FTCLabel.setForeground(Color.WHITE);
+			TRTLabel.setForeground(Color.BLACK);
+			BasicInfoLabel.setForeground(Color.black);
+			CSSLabel.setForeground(Color.black);
+			ACLabel.setForeground(Color.BLACK);
+			MSLabel.setForeground(Color.BLACK);
+		}else if(i==6){
 
 			Basic_Information.setVisible(false);
 			Management_Scales.setVisible(false);
@@ -1132,44 +1169,6 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			FourTControls.setVisible(false);
 			Treat.setVisible(false);
 			button_1.setEnabled(true);
-			button_3.setEnabled(false);
-			button_2.setEnabled(true);
-			FTCLabel.setForeground(Color.BLACK);
-			TRTLabel.setForeground(Color.BLACK);
-			BasicInfoLabel.setForeground(Color.black);
-			CSSLabel.setForeground(Color.black);
-			ACLabel.setForeground(Color.BLACK);
-			MSLabel.setForeground(Color.BLACK);
-			RCLabel.setForeground(Color.white);
-		}else if(i==6){
-
-			Basic_Information.setVisible(false);
-			Management_Scales.setVisible(false);
-			RiskCalculator.setVisible(false);
-			Control_Set_Selection.setVisible(false);
-			Acceptance_Criteria.setVisible(false);
-			FourTControls.setVisible(true);
-			Treat.setVisible(false);
-			button_1.setEnabled(true);
-			button_3.setEnabled(true);
-			button_2.setEnabled(false);
-			FTCLabel.setForeground(Color.WHITE);
-			TRTLabel.setForeground(Color.BLACK);
-			BasicInfoLabel.setForeground(Color.black);
-			CSSLabel.setForeground(Color.black);
-			ACLabel.setForeground(Color.BLACK);
-			MSLabel.setForeground(Color.BLACK);
-			RCLabel.setForeground(Color.BLACK);
-		}else if(i==7){
-
-			Basic_Information.setVisible(false);
-			Management_Scales.setVisible(false);
-			RiskCalculator.setVisible(false);
-			Control_Set_Selection.setVisible(false);
-			Acceptance_Criteria.setVisible(false);
-			FourTControls.setVisible(false);
-			Treat.setVisible(true);
-			button_1.setEnabled(true);
 			button_3.setEnabled(true);
 			button_2.setEnabled(false);
 			FTCLabel.setForeground(Color.BLACK);
@@ -1178,7 +1177,6 @@ comboBox.addItem("Organization: Unauthorized use of equipment caused by lack of 
 			CSSLabel.setForeground(Color.black);
 			ACLabel.setForeground(Color.BLACK);
 			MSLabel.setForeground(Color.BLACK);
-			RCLabel.setForeground(Color.BLACK);
 		}
 	}
 	private void Referesh() {
@@ -1220,7 +1218,8 @@ class Part {
 	   }
 	}
 class MyComponent extends JComponent {
-	   Part[] slices = { 
+	   
+	Part[] slices = { 
 	      new Part(15, Color.yellow), new Part(30, Color.red)
 	   }; 
 	   MyComponent(int are) {
